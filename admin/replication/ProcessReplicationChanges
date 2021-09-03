@@ -47,11 +47,13 @@ use lib "$FindBin::Bin/../../lib";
 use Getopt::Long;
 use DBI;
 use DBDefs;
+use JSON::XS;
 use MusicBrainz::Server::Context;
 use Sql;
 
 my $long_sql = 0;
 my $short_sql = 0;
+my $dbmirror2 = 0;
 my $debug_xact = 0;
 my $skip_seqid;
 my $limit = 10000;
@@ -77,6 +79,7 @@ EOF
 GetOptions(
     "short-sql"         => \$short_sql,
     "long-sql"          => \$long_sql,
+    "dbmirror2!"        => \$dbmirror2,
     "debug-xact"        => \$debug_xact,
     "skip-seqid|s=i"=> \$skip_seqid,
     "limit=i"           => \$limit,
@@ -93,6 +96,7 @@ my ($ins, $del, $upd) = (0, 0, 0);
 my %bytable;
 
 my $c = MusicBrainz::Server::Context->create_script_context(database => $database);
+my $json = JSON::XS->new;
 
 my $sql = Sql->new($c->conn);
 my $sql2 = Sql->new($c->conn);
@@ -109,10 +113,14 @@ $sql->do("SET CONSTRAINTS ALL DEFERRED");
 #Obtain a list of pending transactions using ordering by our approximation
 #to the commit time.  The commit time approximation is taken to be the
 #SeqId of the last row edit in the transaction.
-my $query = 'SELECT pd.XID,MAX(SeqId) FROM dbmirror_pending pd GROUP BY pd.XID ORDER BY MAX(pd.SeqId)';
+my $query = $dbmirror2
+    ? 'SELECT xid, max(seqid) FROM dbmirror2.pending_data GROUP BY xid ORDER BY max(seqid)'
+    : 'SELECT pd.XID,MAX(SeqId) FROM dbmirror_pending pd GROUP BY pd.XID ORDER BY MAX(pd.SeqId)';
 
 my $total_statements = $sql->select_single_value(
-    'SELECT COUNT(*) FROM dbmirror_pending',
+    $dbmirror2
+        ? 'SELECT count(*) FROM dbmirror2.pending_data'
+        : 'SELECT COUNT(*) FROM dbmirror_pending',
 );
 
 # This loop loops through each pending transaction in the proper order.
@@ -168,6 +176,22 @@ if (my $totalrows = $sql->select($query))
                 ORDER BY SeqId, IsKey DESC
         |;
 
+        if ($dbmirror2) {
+            $query = <<~'SQL';
+                  SELECT pd.seqid,
+                         pd.tablename,
+                         pd.op,
+                         pd.olddata,
+                         pd.newdata,
+                         pk.keys
+                    FROM dbmirror2.pending_data pd
+                    JOIN dbmirror2.pending_keys pk
+                      ON pk.tablename = pd.tablename
+                   WHERE pd.xid = ?
+                ORDER BY pd.seqid ASC
+                SQL
+        }
+
         $slave->begin;
         $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
@@ -181,7 +205,12 @@ if (my $totalrows = $sql->select($query))
             while (@row2 = $sql2->next_row)
             {
                 # TODO: Figure out how to handle errors here
-                if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID, $pull))
+                if ($dbmirror2) {
+                    if (!dbmirror2_command($slave, \@row2)) {
+                        die "Mirror command failed.\n";
+                    }
+                }
+                elsif (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID, $pull))
                 {
                     die "Mirror command failed.\n";
                 }
@@ -191,7 +220,12 @@ if (my $totalrows = $sql->select($query))
         $sql2->finish;
 
         $sql2->do("CLOSE csr");
-        $slave->do(qq[DELETE FROM dbmirror_pending WHERE XID = ?], $XID);
+        $slave->do(
+            $dbmirror2
+                ? 'DELETE FROM dbmirror2.pending_data WHERE xid = ?'
+                : 'DELETE FROM dbmirror_pending WHERE XID = ?',
+            $XID,
+        );
 
         print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
         $slave->commit;
@@ -208,6 +242,14 @@ if (my $totalrows = $sql->select($query))
     $p->("\r", sprintf(" %.2f sec\n", $interval));
 
 }
+
+if ($dbmirror2) {
+    $sql->auto_commit;
+    $sql->do('TRUNCATE dbmirror2.pending_keys');
+    $sql->auto_commit;
+    $sql->do('TRUNCATE dbmirror2.pending_ts');
+}
+
     $sql->finish;
 
 print localtime() . " : Summary of changes applied:\n";
@@ -221,18 +263,25 @@ printf "%7d  %7d  %7d  %s\n", $ins, $upd, $del, "(total)";
 print localtime() . " : Replication changes applied\n";
 
 {
-    for my $table (qw( dbmirror_pendingdata dbmirror_pending ))
+    my @pending_tables;
+    if ($dbmirror2) {
+        push @pending_tables, 'dbmirror2.pending_data';
+    } else {
+        push @pending_tables, qw( dbmirror_pendingdata dbmirror_pending );
+    }
+
+    for my $table (@pending_tables)
     {
         print localtime() . " : Checking that $table is empty\n";
 
         my $n = $sql->select_single_value(
-                "SELECT COUNT(*) FROM \"$table\"",
+                "SELECT COUNT(*) FROM $table",
         );
         die "$table still contains data (rows=$n)!" if $n;
 
         print localtime() . " : Optimising $table\n";
         $sql->auto_commit;
-        $sql->do("VACUUM ANALYZE \"$table\"");
+        $sql->do("VACUUM ANALYZE $table");
     }
 }
 
@@ -269,6 +318,43 @@ sub mirrorCommand
     return 0;
 }
 
+sub dbmirror2_command
+{
+    my ($slave, $row)  = @_;
+
+    my ($seqid, $table, $op, $olddata, $newdata, $keys) = @{$row};
+
+    if (defined $olddata) {
+        $olddata = $json->decode($olddata);
+    }
+
+    if (defined $newdata) {
+        $newdata = $json->decode($newdata);
+    }
+
+    my $t = ($bytable{$table} ||= [0, 0, 0]);
+
+    if ($op eq 'i')
+    {
+        ++$ins;
+        ++$t->[0];
+        return dbmirror2_insert($slave, $table, $newdata);
+    }
+    elsif ($op eq 'd')
+    {
+        ++$del;
+        ++$t->[2];
+        return dbmirror2_delete($slave, $table, $olddata, $keys);
+    }
+    elsif ($op eq 'u')
+    {
+        ++$upd;
+        ++$t->[1];
+        return dbmirror2_update($slave, $table, $olddata, $newdata, $keys);
+    }
+    return 0;
+}
+
 use MusicBrainz::Server::dbmirror;
 
 sub mirrorInsert
@@ -289,6 +375,54 @@ sub mirrorInsert
     return 1;
 }
 
+sub get_column_value_as_string {
+    my $value = shift;
+    # Re-encode JSONB columns as JSON text.
+    ref($value) ? $json->encode($value) : $value;
+}
+
+sub get_sorted_columns_and_values {
+    my $data = $_[0];
+
+    return unless defined $data;
+
+    my @columns = sort { $a cmp $b } keys %{$data};
+
+    my @values = map {
+        get_column_value_as_string($data->{$_})
+    } @columns;
+
+    return (\@columns, \@values);
+}
+
+sub valid_identifer {
+    my $id = shift;
+
+    # All MB table and column names should use only ASCII letters, numbers,
+    # and underscores. We mainly check this so we don't have to quote
+    # identifiers properly.
+    die "Unsupported identifier: $id"
+        unless $id =~ /^[A-Za-z_]+[A-Za-z0-9_]*$/a;
+
+    return $id;
+}
+
+sub dbmirror2_insert {
+    my ($slave, $table, $newdata)  = @_;
+
+    my ($columns, $values) = get_sorted_columns_and_values($newdata);
+    my $columns_string = join q(, ), map { valid_identifer($_) } @$columns;
+    my $placholders = join q(, ), (('?') x @$columns);
+    my $statement = "INSERT INTO $table ($columns_string) VALUES ($placholders)";
+
+    print localtime() . " : INSERT INTO $table\n" if $short_sql;
+    show_long_sql($statement, $values) if $long_sql;
+
+    $slave->do($statement, @$values);
+
+    return 1;
+}
+
 sub mirrorDelete
 {
     my ($result, $slave, $row, $transId) = @_;
@@ -303,6 +437,26 @@ sub mirrorDelete
     print localtime() . " : DELETE FROM $tableName\n" if $short_sql;
     show_long_sql($statement, $args) if $long_sql;
     $slave->do($statement, @$args);
+
+    return 1;
+}
+
+sub dbmirror2_delete {
+    my ($slave, $table, $olddata, $keys)  = @_;
+
+    my $conditions = join ' AND ',
+        map { valid_identifer($_) . ' = ?' }
+        @$keys;
+    my @key_data = map {
+        get_column_value_as_string($olddata->{$_})
+    } @$keys;
+
+    my $statement = "DELETE FROM $table WHERE $conditions";
+
+    print localtime() . " : DELETE FROM $table\n" if $short_sql;
+    show_long_sql($statement, \@key_data) if $long_sql;
+
+    $slave->do($statement, @key_data);
 
     return 1;
 }
@@ -329,6 +483,46 @@ sub mirrorUpdate
     print localtime() . " : UPDATE $tableName\n" if $short_sql;
     show_long_sql($statement, $args) if $long_sql;
     $slave->do($statement, @$args);
+
+    return 1;
+}
+
+sub dbmirror2_update {
+    my ($slave, $table, $olddata, $newdata, $keys)  = @_;
+
+    my (@changed_columns, @changed_values);
+
+    for my $column (sort keys %{$newdata}) {
+        my $old_value = get_column_value_as_string($olddata->{$column});
+        my $new_value = get_column_value_as_string($newdata->{$column});
+        if (
+            (defined $old_value) ne (defined $new_value) ||
+            (
+                (defined $old_value) && (defined $new_value) &&
+                $old_value ne $new_value
+            )
+        ) {
+            push @changed_columns, $column;
+            push @changed_values, $new_value;
+        }
+    }
+
+    my $updates = join q(, ),
+        map { valid_identifer($_) . ' = ?' }
+        @changed_columns;
+    my $conditions = join ' AND ',
+        map { valid_identifer($_) . ' = ?' }
+        @$keys;
+    my @key_data = map {
+        get_column_value_as_string($olddata->{$_})
+    } @$keys;
+
+    my $statement = "UPDATE $table SET $updates WHERE $conditions";
+
+    print localtime() . " : UPDATE $table\n" if $short_sql;
+    show_long_sql($statement, \@key_data) if $long_sql;
+
+    $slave->do($statement, @changed_values, @key_data);
 
     return 1;
 }
