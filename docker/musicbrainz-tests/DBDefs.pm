@@ -54,6 +54,20 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
+    TEST_DBMIRROR2_MASTER => {
+        database    => 'musicbrainz_test_dbmirror2_master',
+        host        => 'localhost',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
+    TEST_DBMIRROR2_SLAVE => {
+        database    => 'musicbrainz_test_dbmirror2_slave',
+        host        => 'localhost',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
 );
 
 sub CACHE_MANAGER_OPTIONS {
@@ -131,5 +145,7 @@ sub USE_SET_DATABASE_HEADER { 1 }
 # a different hostname alias.
 sub WEB_SERVER { 'mbtest:5000' }
 sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
+
+sub REPLICATION_USE_DBMIRROR2 { 1 }
 
 1;
