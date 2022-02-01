@@ -9,7 +9,7 @@
 
 export default function AppDownload() {
   return (
-    <section className="cta-section">
+    <section className="section cta-section">
       <div className="container">
         <div className="row align-items-center">
           <div
