@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import '../../static/styles/home.less';
-
 export default function AppDownload() {
   return (
     <section className="cta-section">

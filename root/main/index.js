@@ -256,7 +256,9 @@ const Homepage = ({
       </div>
     </div>
 
-    <AppDownload />
+    <div id="appDownload">
+      <AppDownload />
+    </div>
 
   </Layout>
 );
