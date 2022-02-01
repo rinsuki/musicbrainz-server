@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function AppDownload() {
+const AppDownload = (): React.Element<'div'> => {
   return (
     <section className="section cta-section">
       <div className="container">
@@ -53,4 +53,6 @@ export default function AppDownload() {
       </div>
     </section>
   );
-}
+};
+
+export default AppDownload;
