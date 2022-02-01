@@ -7,12 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-function AppDownload(props) {
+import '../../static/styles/home.less';
+
+export default function AppDownload() {
   return (
-    <section className={
-      'section cta-section ' + props.theme
-    }
-    >
+    <section className="cta-section">
       <div className="container">
         <div className="row align-items-center">
           <div
@@ -57,7 +56,3 @@ function AppDownload(props) {
     </section>
   );
 }
-export default (hydrate(
-  'div.app-download',
-  AppDownload,
-): React.AbstractComponent<{}, void>);
