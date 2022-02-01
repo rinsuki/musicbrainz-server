@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const AppDownload = (): React.Element<'div'> => {
+const AppDownload = (): React.Element<'section'> => {
   return (
     <section className="section cta-section">
       <div className="container">
