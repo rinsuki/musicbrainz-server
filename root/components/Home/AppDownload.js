@@ -7,9 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 const AppDownload = (): React.Element<'section'> => {
   return (
-    <section className="section cta-section">
+    <section className="section download-section">
       <div className="container">
         <div className="row align-items-center">
           <div
@@ -17,7 +19,7 @@ const AppDownload = (): React.Element<'section'> => {
              text-md-start mb-5 mb-md-0"
           >
             <h2>
-              {l(`Download and Use our App and Software`)}
+              {l('Download our software')}
             </h2>
           </div>
           <div className="col-md-5 text-center text-md-end">
@@ -28,7 +30,7 @@ const AppDownload = (): React.Element<'section'> => {
               target="_blank"
             >
               <i className="fab fa-google-play" />
-              <span>{l(`Google play`)}</span>
+              <span>{l('Google Play')}</span>
             </a>
             <a
               className="btn d-inline-flex align-items-center"
@@ -37,7 +39,7 @@ const AppDownload = (): React.Element<'section'> => {
               target="_blank"
             >
               <i className="fab fa-android" />
-              <span>{l(`F-Droid`)}</span>
+              <span>{l('F-Droid')}</span>
             </a>
             <a
               className="btn d-inline-flex align-items-center"
@@ -46,7 +48,7 @@ const AppDownload = (): React.Element<'section'> => {
               target="_blank"
             >
               <i className="fa fa-laptop" />
-              <span>{l(`PC & Mac`)}</span>
+              <span>{l('PC & Mac')}</span>
             </a>
           </div>
         </div>
