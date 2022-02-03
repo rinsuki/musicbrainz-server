@@ -8,6 +8,7 @@
  */
 
 import * as React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
@@ -29,7 +30,7 @@ const AppDownload = (): React.Element<'section'> => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <i className="fab fa-google-play" />
+              <FontAwesomeIcon icon="fa-brands fa-google-play" />
               <span>{l('Google Play')}</span>
             </a>
             <a
@@ -38,7 +39,7 @@ const AppDownload = (): React.Element<'section'> => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <i className="fab fa-android" />
+              <FontAwesomeIcon icon="fa-brands fa-android" />
               <span>{l('F-Droid')}</span>
             </a>
             <a
@@ -47,7 +48,7 @@ const AppDownload = (): React.Element<'section'> => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <i className="fa fa-laptop" />
+              <FontAwesomeIcon icon="fa-solid fa-laptop" />
               <span>{l('PC & Mac')}</span>
             </a>
           </div>

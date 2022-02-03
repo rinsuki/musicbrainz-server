@@ -119,15 +119,6 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
         title={l('MusicBrainz: Track')}
         type="application/opensearchdescription+xml"
       />
-      <link
-        crossOrigin="anonymous"
-        href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity={
-          'sha384-AYmEC3Yw5cVb3ZcuHtOA93w35' +
-              'dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p'
-        }
-        rel="stylesheet"
-      />
       <noscript>
         <link
           href={noScriptLessUrl}
