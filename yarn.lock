@@ -1285,6 +1285,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@metabrainz/design-system@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@metabrainz/design-system/-/design-system-1.0.2.tgz#8abe3a64c92e0808973328efec2b3417a011c14c"
+  integrity sha512-zUdadNgLikWcAGCGbWChGnNn4XgF+ymf3HKgq6KAsrMB8Zz902LX9LwnTc/lnf9fWNwNZ+kz7fJpl7AW8N6rhw==
+
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.2":
   version "2.1.8-no-fsevents.2"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/chokidar-2/-/chokidar-2-2.1.8-no-fsevents.2.tgz#e324c0a247a5567192dd7180647709d7e2faf94b"
