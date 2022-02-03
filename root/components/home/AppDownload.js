@@ -9,8 +9,8 @@
 
 import * as React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faLaptop} from '@fortawesome/free-solid-svg-icons';
-import {faGooglePlay, faAndroid} from '@fortawesome/free-brands-svg-icons';
+import type {faGooglePlay, faAndroid}
+  from '@fortawesome/free-brands-svg-icons';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
@@ -22,7 +22,7 @@ const AppDownload = (): React.Element<'section'> => {
              text-md-start mb-5 mb-md-0"
           >
             <h2>
-              {l('Download our apps')}
+              {l('Download our app')}
             </h2>
           </div>
           <div className="bs col-md-6 text-center text-md-end">
@@ -52,19 +52,7 @@ const AppDownload = (): React.Element<'section'> => {
               {' '}
               <span>{l('F-Droid')}</span>
             </a>
-            <a
-              className="bs btn align-items-center"
-              href="https://picard.musicbrainz.org"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <FontAwesomeIcon
-                icon={faLaptop}
-                size="2x"
-              />
-              {' '}
-              <span>{l('PC & Mac')}</span>
-            </a>
+
           </div>
         </div>
       </div>
