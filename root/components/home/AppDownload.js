@@ -9,8 +9,7 @@
 
 import * as React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import type {faGooglePlay, faAndroid}
-  from '@fortawesome/free-brands-svg-icons';
+import {faGooglePlay, faAndroid} from '@fortawesome/free-brands-svg-icons';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
