@@ -305,7 +305,9 @@ const Layout = ({
           ? <MergeHelper merger={$c.session.merger} />
           : null}
 
-        <Footer />
+        <div className="bs" id="footer">
+          <Footer />
+        </div>
       </body>
     </html>
   );
