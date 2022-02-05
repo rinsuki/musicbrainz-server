@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2021 MetaBrainz Foundation
+ * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -13,22 +13,23 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-4">
-            <h2>
+            <h3>
               <img
                 alt="MusicBrainz"
-                height="60"
                 src="../../static/images/meb-logos/musicbrainz.svg"
-                width="240"
+                width="180"
               />
-            </h2>
+            </h3>
             <br />
             <p className="color-gray">
               {l('MusicBrainz is an open music encyclopedia that collects' +
               ' music metadata and makes it available to the public.')}
             </p>
-            <ul>
+            <ul className="list-unstyled">
               <li className="color-a">
-                {l('Development IRC:')}
+                <span className="color-gray">
+                  {l('Development IRC:')}
+                </span>
                 <a
                   href="https://kiwiirc.com/nextclient/irc.libera.chat/?#metabrainz"
                   rel="noopener noreferrer"
@@ -66,7 +67,11 @@ const Footer = () => {
             </h3>
             <ul className="list-unstyled">
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://metabrainz.org/donate"
                   rel="noopener noreferrer"
@@ -76,7 +81,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://wiki.musicbrainz.org/Main_Page"
                   rel="noopener noreferrer"
@@ -86,7 +95,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://community.metabrainz.org/"
                   rel="noopener noreferrer"
@@ -96,7 +109,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://blog.metabrainz.org/"
                   rel="noopener noreferrer"
@@ -106,7 +123,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://www.redbubble.com/people/metabrainz/shop"
                   rel="noopener noreferrer"
@@ -116,7 +137,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://metabrainz.org/"
                   rel="noopener noreferrer"
@@ -133,7 +158,11 @@ const Footer = () => {
             </h3>
             <ul className="list-unstyled">
               <li className="image-container item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <div className="image">
                   <img
                     alt="image"
@@ -151,7 +180,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="image-container item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <div className="image">
                   <img
                     alt="image"
@@ -169,7 +202,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="image-container item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <div className="image">
                   <img
                     alt="image"
@@ -187,7 +224,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="image-container item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <div className="image">
                   <img
                     alt="image"
@@ -205,7 +246,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="image-container item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <div className="image">
                   <img
                     alt="image"
@@ -223,7 +268,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="image-container item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <div className="image">
                   <img
                     alt="image"
@@ -249,17 +298,25 @@ const Footer = () => {
             </h3>
             <ul className="list-unstyled">
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://musicbrainz.org/doc/Beginners_Guide"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {l('Beginner&apos;s Guide')}
+                  {l(`Beginner's Guide`)}
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://musicbrainz.org/doc/Style"
                   rel="noopener noreferrer"
@@ -269,7 +326,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://musicbrainz.org/doc/How_To"
                   rel="noopener noreferrer"
@@ -279,7 +340,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://musicbrainz.org/doc/Frequently_Asked_Questions"
                   rel="noopener noreferrer"
@@ -289,7 +354,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://musicbrainz.org/doc/MusicBrainz_Documentation"
                   rel="noopener noreferrer"
@@ -299,7 +368,11 @@ const Footer = () => {
                 </a>
               </li>
               <li className="item-list-a">
-                <i className="bi bi-chevron-right" />
+                <img
+                  height="18"
+                  src="../../static/images/icons/angle_double_right_icon.svg"
+                  width="18"
+                />
                 <a
                   href="https://musicbrainz.org/doc/Development"
                   rel="noopener noreferrer"
