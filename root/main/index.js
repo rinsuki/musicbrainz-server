@@ -256,7 +256,7 @@ const Homepage = ({
       </div>
     </div>
 
-    <div id="app-download">
+    <div className="bs" id="app-download">
       <AppDownload />
     </div>
 

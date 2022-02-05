@@ -13,20 +13,17 @@ import {faGooglePlay, faAndroid} from '@fortawesome/free-brands-svg-icons';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
-    <section className="bs section download-section center">
-      <div className="bs container">
-        <div className="bs row align-items-center">
-          <div
-            className="bs col-md-6 me-auto text-center
-             text-md-start mb-5 mb-md-0"
-          >
+    <section className="section download-section center">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6">
             <h2>
               {l('Download our app')}
             </h2>
           </div>
-          <div className="bs col-md-6 text-center text-md-end">
+          <div className="col-md-6">
             <a
-              className="bs btn d-inline-flex align-items-center"
+              className="btn btn-dark btn-lg"
               href="https://play.google.com/store/apps/details?id=org.metabrainz.android"
               rel="noopener noreferrer"
               target="_blank"
@@ -36,10 +33,10 @@ const AppDownload = (): React.Element<'section'> => {
                 size="2x"
               />
               {' '}
-              <span>{l('Google Play')}</span>
+              {l('Google Play')}
             </a>
             <a
-              className="bs btn d-inline-flex align-items-center"
+              className="btn btn-dark btn-lg"
               href="https://f-droid.org/en/packages/org.metabrainz.android/"
               rel="noopener noreferrer"
               target="_blank"
@@ -49,9 +46,8 @@ const AppDownload = (): React.Element<'section'> => {
                 size="2x"
               />
               {' '}
-              <span>{l('F-Droid')}</span>
+              {l('F-Droid')}
             </a>
-
           </div>
         </div>
       </div>

@@ -119,6 +119,7 @@ const Head = ({...props}: HeadProps): React.Element<'head'> => {
         title={l('MusicBrainz: Track')}
         type="application/opensearchdescription+xml"
       />
+
       <noscript>
         <link
           href={noScriptLessUrl}
