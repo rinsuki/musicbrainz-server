@@ -14,16 +14,6 @@ const About = (): React.Element<'section'> => {
     <section className="about" id="about">
       <div className="container">
         <div className="row">
-          <iframe
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            className="col-lg-6 order-1 order-lg-2"
-            data-bs-aos="zoom-in"
-            data-bs-aos-delay="150"
-            frameBorder="0"
-            src="https://www.youtube.com/embed/-CVNe9gmG6c"
-            title="video"
-          />
           <div
             className="col-lg-6 content"
             data-bs-aos="fade-right"
@@ -32,6 +22,7 @@ const About = (): React.Element<'section'> => {
               className="navbar-brand text-brand"
             >
               {l('About')}
+              {' '}
               <span
                 className="color-purple"
               >
@@ -82,8 +73,17 @@ const About = (): React.Element<'section'> => {
               <i className="bi bi-long-arrow-right" />
             </a>
           </div>
+          <iframe
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            className="col-lg-6 order-1 order-lg-2"
+            data-bs-aos="zoom-in"
+            data-bs-aos-delay="150"
+            frameBorder="0"
+            src="https://www.youtube.com/embed/-CVNe9gmG6c"
+            title="video"
+          />
         </div>
-
       </div>
     </section>
   );

@@ -39,34 +39,47 @@
 #about {
     .about {
         padding: 60px 0;
-        background: var(--background-color);
+        background: white;
+
+        .text-brand {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .color-purple {
+            color: #ba478f;
+        }
+
+        .color-orange {
+            color: #eb743b;
+        }
 
         .content {
             h3 {
                 font-weight: 600;
                 font-size: 32px;
-                color: var(--color);
+                color: black;
             }
 
             ul {
                 list-style: none;
                 padding: 0;
-                color: var(--color);
+                color: black;
 
                 li {
                     padding-bottom: 10px;
-                    color: var(--color);
+                    color: black;
                 }
 
                 i {
                     font-size: 20px;
                     padding-right: 4px;
-                    color: var(--secondary-color);
+                    color: purple;
                 }
             }
 
             p {
-                color: var(--color);
+                color: black;
             }
 
             .read-more {
@@ -79,11 +92,11 @@
                 border-radius: 5px;
                 transition: 0.5s;
                 color: white;
-                background: linear-gradient(45deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+                background: linear-gradient(45deg, purple 0%, orange 100%);
                 position: relative;
 
                 &:hover {
-                    background: linear-gradient(180deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+                    background: linear-gradient(180deg, purple 0%, orange 100%);
                 }
 
                 i {
@@ -92,6 +105,50 @@
                     right: 20px;
                     top: 12px;
                 }
+            }
+        }
+
+        @media (max-width: 767px) {
+            .text-brand {
+                font-size: 1.8rem;
+            }
+        }
+    }
+}
+
+#facts {
+    .counts {
+        padding: 10px 0 60px;
+        background: #f3f3f3;
+
+        .count-box {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 0 30px rgba(1, 41, 112, 0.08);
+
+            i {
+                font-size: 42px;
+                line-height: 0;
+                margin-right: 20px;
+                color: orange;
+            }
+
+            span {
+                font-size: 36px;
+                display: block;
+                font-weight: 600;
+                color: purple;
+            }
+
+            p {
+                padding: 0;
+                margin: 0;
+                font-family: "Nunito", sans-serif;
+                font-size: 14px;
+                color: black;
             }
         }
     }
