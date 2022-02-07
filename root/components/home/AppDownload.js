@@ -13,14 +13,12 @@ import {faGooglePlay, faAndroid} from '@fortawesome/free-brands-svg-icons';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
-    <section className="section download-section center">
+    <section className="section download-section text-center">
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
-            <h2>
-              {l('Download our app')}
-            </h2>
-          </div>
+          <h2 className="col-md-6 btn-lg">
+            {l('Download our app')}
+          </h2>
           <div className="col-md-6">
             <a
               className="btn btn-dark btn-lg"
@@ -30,7 +28,7 @@ const AppDownload = (): React.Element<'section'> => {
             >
               <FontAwesomeIcon
                 icon={faGooglePlay}
-                size="2x"
+                size="lg"
               />
               {' '}
               {l('Google Play')}
@@ -43,7 +41,7 @@ const AppDownload = (): React.Element<'section'> => {
             >
               <FontAwesomeIcon
                 icon={faAndroid}
-                size="2x"
+                size="lg"
               />
               {' '}
               {l('F-Droid')}
