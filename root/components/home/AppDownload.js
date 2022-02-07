@@ -13,10 +13,10 @@ import {faGooglePlay, faAndroid} from '@fortawesome/free-brands-svg-icons';
 
 const AppDownload = (): React.Element<'section'> => {
   return (
-    <section className="section download-section text-center">
+    <section className="download-section center">
       <div className="container">
         <div className="row">
-          <h2 className="col-md-6 btn-lg">
+          <h2 className="col-md-6">
             {l('Download our app')}
           </h2>
           <div className="col-md-6">
