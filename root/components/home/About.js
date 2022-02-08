@@ -8,6 +8,8 @@
  */
 
 import * as React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 
 const About = (): React.Element<'section'> => {
   return (
@@ -16,10 +18,9 @@ const About = (): React.Element<'section'> => {
         <div className="row">
           <div
             className="col-lg-6 content"
-            data-bs-aos="fade-right"
           >
             <h3
-              className="navbar-brand text-brand"
+              className="heading"
             >
               {l('About')}
               {' '}
@@ -44,41 +45,42 @@ const About = (): React.Element<'section'> => {
             </p>
             <ul>
               <li>
-                <i className="bi bi-check-circle" />
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  size="lg"
+                />
+                {' '}
                 {l('The ultimate source of music information by ')}
                 {l('allowing anyone to contribute and releasing the ')}
                 {l('data under open licenses.')}
               </li>
               <li>
-                <i className="bi bi-check-circle" />
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  size="lg"
+                />
+                {' '}
                 {l('The universal lingua franca for music by ')}
                 {l('providing a reliable and unambiguous form of music ')}
                 {l('identification, enabling both people and machines ')}
                 {l('to have meaningful conversations about music.')}
               </li>
               <li>
-                <i className="bi bi-check-circle" />
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  size="lg"
+                />
+                {' '}
                 {l('Like Wikipedia, MusicBrainz is maintained ')}
                 {l('by a global community of users and we want everyone ')}
                 {l('— including you — to participate and contribute.')}
               </li>
             </ul>
-            <a
-              className="read-more"
-              href="https://musicbrainz.org"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {l('Read More')}
-              <i className="bi bi-long-arrow-right" />
-            </a>
           </div>
           <iframe
             allow="autoplay; encrypted-media"
             allowFullScreen
-            className="col-lg-6 order-1 order-lg-2"
-            data-bs-aos="zoom-in"
-            data-bs-aos-delay="150"
+            className="col-lg-6"
             frameBorder="0"
             src="https://www.youtube.com/embed/-CVNe9gmG6c"
             title="video"

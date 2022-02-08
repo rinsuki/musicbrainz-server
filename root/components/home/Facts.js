@@ -1,6 +1,6 @@
 /*
  * @flow strict-local
- * Copyright (C) 2021 MetaBrainz Foundation
+ * Copyright (C) 2022 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -8,17 +8,22 @@
  */
 
 import * as React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faMusic, faHeadphones, faCompactDisc, faUsers}
+  from '@fortawesome/free-solid-svg-icons';
 
 const Facts = (): React.Element<'div'> => {
   return (
     <section className="counts" id="counts">
-      <div className="container" data-bs-aos="fade-up">
-
-        <div className="row gy-4">
-
+      <div className="container">
+        <div className="row">
           <div className="col-lg-3 col-md-6">
             <div className="count-box">
-              <i className="bi bi-music-note-list" />
+              <FontAwesomeIcon
+                className="icon"
+                icon={faMusic}
+                size="4x"
+              />
               <div>
                 <span>
                   {l(`1.88 M`)}
@@ -32,7 +37,11 @@ const Facts = (): React.Element<'div'> => {
 
           <div className="col-lg-3 col-md-6">
             <div className="count-box">
-              <i className="bi bi-journal-richtext" />
+              <FontAwesomeIcon
+                className="icon"
+                icon={faCompactDisc}
+                size="4x"
+              />
               <div>
                 <span>
                   {l(`3.00 M`)}
@@ -46,7 +55,11 @@ const Facts = (): React.Element<'div'> => {
 
           <div className="col-lg-3 col-md-6">
             <div className="count-box">
-              <i className="bi bi-headset" />
+              <FontAwesomeIcon
+                className="icon"
+                icon={faHeadphones}
+                size="4x"
+              />
               <div>
                 <span>
                   {l(`35.20 M`)}
@@ -60,7 +73,11 @@ const Facts = (): React.Element<'div'> => {
 
           <div className="col-lg-3 col-md-6">
             <div className="count-box">
-              <i className="bi bi-people" />
+              <FontAwesomeIcon
+                className="icon"
+                icon={faUsers}
+                size="4x"
+              />
               <div>
                 <span>
                   {l(`2.18 M`)}
