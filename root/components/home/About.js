@@ -13,11 +13,11 @@ import {faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 
 const About = (): React.Element<'section'> => {
   return (
-    <section className="about" id="about">
+    <section className="about">
       <div className="container">
         <div className="row">
           <div
-            className="col-lg-6 content"
+            className="col-lg-6"
           >
             <h3
               className="heading"
@@ -35,7 +35,7 @@ const About = (): React.Element<'section'> => {
                 {l('Brainz')}
               </span>
             </h3>
-            <p className="fst-italic">
+            <p>
               {l('MusicBrainz is an open music encyclopedia ')}
               {l('that collects music metadata and makes ')}
               {l('it available to the public.')}
@@ -44,7 +44,7 @@ const About = (): React.Element<'section'> => {
               {l('MusicBrainz aims to be:')}
             </p>
             <ul>
-              <li>
+              <li style={{paddingBottom: '10px'}}>
                 <FontAwesomeIcon
                   icon={faCheckCircle}
                   size="lg"
@@ -54,7 +54,7 @@ const About = (): React.Element<'section'> => {
                 {l('allowing anyone to contribute and releasing the ')}
                 {l('data under open licenses.')}
               </li>
-              <li>
+              <li style={{paddingBottom: '10px'}}>
                 <FontAwesomeIcon
                   icon={faCheckCircle}
                   size="lg"
