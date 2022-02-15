@@ -12,9 +12,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMusic, faHeadphones, faCompactDisc, faUsers}
   from '@fortawesome/free-solid-svg-icons';
 
-const Facts = (): React.Element<'div'> => {
+const Facts = (): React.Element<'section'> => {
   return (
-    <section className="counts" id="counts">
+    <section className="counts">
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-6">
